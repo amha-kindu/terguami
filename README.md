@@ -153,6 +153,17 @@ The model is further optimized for deployment with quantization to minimize late
 
 ---
 
+## 🔨 Training Code
+
+The training code for the custom transformer model is available in a separate repository by the same author. This code includes the full pipeline for training the model on a custom curated English-Amharic dataset, from data preprocessing to model optimization.
+
+You can find the repository containing the training code here:
+- [Training Code Repository](https://github.com/amha-kindu/machine-translation)
+
+Feel free to explore the training process, contribute, or adapt the code for your own use!
+
+---
+
 ## 🚧 Future Improvements
 
 - 🚧 Add support for **bi-directional translation** (Amharic-to-English).
