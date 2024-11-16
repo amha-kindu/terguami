@@ -1,6 +1,7 @@
 import re
 import torch
 from pathlib import Path
+from core.logger import logger
 from core.config import settings
 from tokenizers import Tokenizer
 from nltk.corpus import stopwords
@@ -331,7 +332,7 @@ class ParallelTextDataset(Dataset):
         tgt_token_ids = self.tgt_preprocessor.preprocess(tgt_text)
 
         if len(src_token_ids):
-            print(f"Number of input tokens: {len(src_token_ids)}")
+            logger.info(f"Number of input tokens: {len(src_token_ids)}")
                 
         src_padding = settings.SEQ_LEN - len(src_token_ids) - 2
         tgt_padding = settings.SEQ_LEN - len(tgt_token_ids) - 1

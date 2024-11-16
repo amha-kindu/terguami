@@ -21,6 +21,13 @@ This repository provides an English-to-Amharic translation API built with **Fast
 
 ---
 
+## 🖼️ Demo Images
+
+### API in Action
+![API in Action](assets/translate_demo.png "Demo of the Translation API in Action")
+
+---
+
 ## Table of Contents
 
 1. [Installation](#installation)
