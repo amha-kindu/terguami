@@ -76,18 +76,20 @@ class MtInferenceEngine:
 
 
 state = torch.load(settings.MODEL_PATH, map_location=settings.DEVICE)
-
-src_tokenizer: Tokenizer = get_tokenizer(settings.SRC_LANG, "tokenizer-en-v3.5-20k.json")
-tgt_tokenizer: Tokenizer = get_tokenizer(settings.TGT_LANG, "tokenizer-am-v3.5-20k.json")
-
 model = MtTransformerModel.build(
+    state=state,
     src_vocab_size=settings.VOCAB_SIZE, 
     tgt_vocab_size=settings.VOCAB_SIZE
 ).to(settings.DEVICE)
-model.load_state_dict(state["model_state_dict"])
 
 model.eval()
-params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-logger.info(f"Initiating Inference on `{settings.DEVICE}` device with a model that has {params} trainable parameters.")
+total_params = sum(p.numel() for p in model.parameters())
+logger.info(f"Device: {settings.DEVICE}")
+logger.info(f"Total Parameters: {total_params}")
+logger.info(f"Trainable Parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad)}")
+logger.info(f"Model Size(MB): {total_params * 4 / (1024 ** 2):.2f}MB")
+
+src_tokenizer: Tokenizer = get_tokenizer(settings.SRC_LANG, "tokenizer-en-v3.5-20k.json")
+tgt_tokenizer: Tokenizer = get_tokenizer(settings.TGT_LANG, "tokenizer-am-v3.5-20k.json")
 
 TRANSLATOR = MtInferenceEngine(model, src_tokenizer, tgt_tokenizer)
