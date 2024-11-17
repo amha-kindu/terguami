@@ -4,10 +4,7 @@ from pathlib import Path
 from core.logger import logger
 from core.config import settings
 from tokenizers import Tokenizer
-from nltk.corpus import stopwords
 from abc import ABC, abstractmethod
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
 from torch.utils.data import Dataset, DataLoader
 
 
@@ -26,13 +23,6 @@ class PreprocessingPipeline(ABC):
     def __init__(self, tokenizer: Tokenizer) -> None:
         super().__init__()
         self.tokenizer = tokenizer
-        
-    def tokenize(self, text):
-        """
-        Tokenize the input text into words.
-        """
-        words = word_tokenize(text)
-        return words
     
     @abstractmethod
     def preprocess(self, text: str, encode=True) -> str:
@@ -186,8 +176,6 @@ class AmharicPreprocessor(PreprocessingPipeline):
 class EnglishPreprocessor(PreprocessingPipeline):
     def __init__(self, tokenizer: Tokenizer) -> None:
         super().__init__(tokenizer)
-        self.stop_words = set(stopwords.words('english'))
-        self.lemmatizer = WordNetLemmatizer()
     
     def preprocess(self, text: str, encode=True) -> str:
         
@@ -201,16 +189,7 @@ class EnglishPreprocessor(PreprocessingPipeline):
         text = self.remove_punc_and_special_chars(text)
         
         # Remove non-English chars and numbers
-        text = self.remove_non_english_and_numbers(text)       
-        
-        # # Pre-tokenization
-        # words = self.tokenize(text)
-
-        # # Remove stopwords
-        # words = self.remove_stopwords(words)
-
-        # # Lemmatization
-        # words = self.lemmatize(words) 
+        text = self.remove_non_english_and_numbers(text)
         
         if encode:
             return self.tokenizer.encode(

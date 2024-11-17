@@ -1,7 +1,6 @@
 from pydantic_settings import BaseSettings
-import torch, random, nltk
+import torch, random
 
-nltk.download('stopwords')
 
 torch.manual_seed(3000)
 def get_device(device_name: str) -> torch.device:
@@ -10,6 +9,7 @@ def get_device(device_name: str) -> torch.device:
     return torch.device(device_name)
 
 random.seed(3000)
+
 
 class Settings(BaseSettings):
     D_MODEL: int = 512

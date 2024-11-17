@@ -63,7 +63,6 @@ fastapi==0.115.5
 uvicorn==0.32.2
 pydantic==2.9.2
 pydantic-settings==2.6.1
-nltk==3.8.1
 numpy==1.26.3
 tokenizers==0.15.0
 torch==2.1.2
@@ -144,7 +143,7 @@ The translation model is a custom transformer-based architecture implemented in 
 Key highlights include:
 
 - **Custom Tokenizer**: Uses subword tokenization (Byte Pair Encoding) for robust handling of rare and compound words.
-- **Preprocessing**: Text preprocessing with **NLTK**, including lowercasing, abbreviation normalization, normalization of character level mismatch, punctuation & special character removal, and stopword removal for cleaner and consistent input data.
+- **Preprocessing**: Applied Text preprocessing including lowercasing, abbreviation normalization, normalization of character level mismatch, punctuation & special character removal, and stopword removal for cleaner and consistent input data.
 - **Dataset**: Trained on a curated English-Amharic parallel corpus, preprocessed to reduce noise and normalize tokens, with an 80-15-5 train-test-validation split.
 - **Training**: Optimized using **AdamW** with a warm-up scheduler and cross-entropy loss with label smoothing to enhance generalization.
 - **Inference**: Features beam search for improved accuracy and greedy decoding for faster results.
